@@ -2,9 +2,31 @@ name: Jest Testing worflow - CI/CD
 
 on:
   push:
-    branches: [ develop ]
+    branches: 
+    - 'develop'
+    - '!main'
+    - '!master'
+    - '!feature*'
+    - '!feature/*'
+    - '!fix*'
+    - '!fix/*'
+    - '!hotfix*'
+    - '!hotfix/*'
+    - '!feat*'
+    - '!feat/*'
   pull_request:
-    branches: [ develop ]
+    branches:
+    - 'develop'
+    - '!main'
+    - '!master'
+    - '!feature*'
+    - '!feature/*'
+    - '!fix*'
+    - '!fix/*'
+    - '!hotfix*'
+    - '!hotfix/*'
+    - '!feat*'
+    - '!feat/*'
 
 jobs:
     Test:
@@ -21,4 +43,6 @@ jobs:
               run: npm config set legacy-peer-deps=true && npm install --legacy-peer-deps
 
             - name: Run tests
-              run: npm run jest --watch
+              run: npm test
+
+            
