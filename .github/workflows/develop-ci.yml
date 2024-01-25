@@ -1,0 +1,24 @@
+name: Jest Testing worflow - CI/CD
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+    Test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@v2
+
+            - name: Take package.json version
+              id: package_version
+              run: echo ::set-output name=package_version::$(node -p "require('./package.json').version")
+    
+            - name: Install dependencies
+              run: npm config set legacy-peer-deps=true && npm install --legacy-peer-deps
+
+            - name: Run tests
+              run: npm run jest --watch
